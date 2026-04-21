@@ -184,6 +184,7 @@
             promises.push(fetch(`articles/${i}.md`).then(r => r.ok ? r.text().then(t => parseMD(t, i)) : null).catch(() => null));
         }
         const results = await Promise.all(promises);
+        // Tri par date décroissante
         allArticles = results.filter(a => a !== null).sort((a, b) => new Date(b.date) - new Date(a.date));
         filteredArticles = [...allArticles];
         document.getElementById('tickerContent').innerHTML = allArticles.map(a => `<span class="ticker-item">● ${a.title}</span>`).join('');
@@ -199,7 +200,17 @@
                 const p = line.split(':');
                 if (p.length >= 2) meta[p[0].trim().toLowerCase()] = p.slice(1).join(':').trim();
             });
-            return { id, title: meta.titre || 'Sans titre', cat: meta.categorie || 'News', date: meta.date || '', time: meta.heure || '', image: meta.image || 'articles/images/1.jpg', excerpt: meta.extrait || '', content: match[2].trim() };
+            // SECURITE : Valeurs par défaut si oublié dans le .md
+            return { 
+                id, 
+                title: meta.titre || 'Article sans titre', 
+                cat: meta.categorie || 'Infos', 
+                date: meta.date || 'Date non précisée', 
+                time: meta.heure || '', // Vide si oublié
+                image: meta.image || 'articles/images/1.jpg', 
+                excerpt: meta.extrait || '', 
+                content: match[2].trim() 
+            };
         } catch (e) { return null; }
     }
 
@@ -217,13 +228,14 @@
 
         // --- HERO AREA ---
         const top = data[0];
+        const topTimeDisplay = top.time ? ` à ${top.time}` : ''; // Sécurité heure
         document.getElementById('heroArea').innerHTML = `
             <div class="hero-main" onclick="openArticle(${top.id})">
                 <img src="${top.image}">
                 <div class="hero-content">
                     <div style="margin-bottom:10px;">
                         <span style="background:var(--highlight);padding:3px 10px;border-radius:5px;font-size:11px;font-weight:bold;">${top.cat}</span>
-                        <span style="font-size:12px; margin-left:10px; color:#ddd;">📅 ${top.date} à ${top.time}</span>
+                        <span style="font-size:12px; margin-left:10px; color:#ddd;">📅 ${top.date}${topTimeDisplay}</span>
                     </div>
                     <h2 style="font-size:28px;font-family:'Playfair Display';">${top.displayTitle}</h2>
                 </div>
@@ -242,19 +254,21 @@
         `;
 
         // --- GRILLE ---
-        document.getElementById('newsGrid').innerHTML = data.slice(1).map(a => `
+        document.getElementById('newsGrid').innerHTML = data.slice(1).map(a => {
+            const timeInfo = a.time ? ` - ${a.time}` : ''; // Sécurité heure
+            return `
             <div class="news-card" onclick="openArticle(${a.id})">
                 <img src="${a.image}" class="news-img">
                 <div class="news-body">
                     <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
                         <span style="color:var(--highlight);font-size:10px;font-weight:bold;">${a.cat}</span>
-                        <span style="color:var(--text-muted);font-size:10px;">🕒 ${a.date} - ${a.time}</span>
+                        <span style="color:var(--text-muted);font-size:10px;">🕒 ${a.date}${timeInfo}</span>
                     </div>
                     <h3 style="margin:5px 0;font-family:'Playfair Display'; font-size:18px;">${a.displayTitle}</h3>
                     <p style="font-size:12px;color:var(--text-muted);">${a.displayExcerpt.substring(0, 90)}...</p>
                 </div>
             </div>
-        `).join('');
+        `}).join('');
 
         // --- TENDANCES ---
         document.getElementById('trendingList').innerHTML = allArticles.slice(0, 5).map((a, i) => `
@@ -277,7 +291,8 @@
         document.getElementById('viewImg').src = art.image;
         document.getElementById('viewCat').innerText = art.cat;
         document.getElementById('viewTitle').innerText = art.title;
-        document.getElementById('viewMeta').innerText = `Publié le ${art.date} à ${art.time}`;
+        const fullMeta = art.time ? `Le ${art.date} à ${art.time}` : `Le ${art.date}`;
+        document.getElementById('viewMeta').innerText = fullMeta;
         document.getElementById('viewContent').innerHTML = marked.parse(art.content);
         if (currentLang === 'ar') {
             toggleToast(true);
