@@ -92,7 +92,9 @@
     <div class="top-bar-content">
         <div id="liveTime"></div>
         <div class="top-socials">
-            <a href="#">Facebook</a> <a href="#">Youtube</a> <a href="#">Instagram</a>
+            <a href="https://www.facebook.com/basta.infostech" target="_blank">Facebook</a>
+            <a href="https://www.youtube.com/@basta-infostech" target="_blank">Youtube</a>
+            <a href="https://www.instagram.com/basta.infostech" target="_blank">Instagram</a>
         </div>
     </div>
 </div>
@@ -120,6 +122,8 @@
             <a onclick="filterArticles('Algérie', this)">Algérie</a>
             <a onclick="filterArticles('Télécoms', this)">Télécoms</a>
             <a onclick="filterArticles('Mobile', this)">Mobile</a>
+            <a onclick="filterArticles('Technologie', this)">Technologie</a>
+            <a onclick="showAbout(this)" id="navAbout">À propos</a>
         </nav>
     </div>
 </header>
@@ -144,6 +148,50 @@
     </div>
 </div>
 
+<!-- PAGE À PROPOS -->
+<div id="aboutView" style="display:none; max-width:900px; margin:30px auto; padding:20px;">
+    <div style="background:var(--card-bg); border-radius:25px; overflow:hidden; box-shadow:0 20px 40px rgba(0,0,0,0.3);">
+        <div style="background:linear-gradient(135deg,#1a1a2e,#e94560); padding:50px 40px; text-align:center;">
+            <h1 style="font-family:'Playfair Display'; font-size:42px; margin-bottom:10px;">Basta-InfosTech.</h1>
+            <p style="color:rgba(255,255,255,0.8); font-size:16px;">Média spécialisé TIC & Télécoms en Algérie</p>
+        </div>
+        <div style="padding:40px;">
+            <h2 style="font-family:'Playfair Display'; margin-bottom:15px; color:var(--highlight);">Notre Mission</h2>
+            <p style="color:#ccc; line-height:1.9; margin-bottom:30px;">Basta-InfosTech est un média numérique algérien indépendant dédié à l'actualité des Technologies de l'Information et de la Communication (TIC), des Télécoms et du numérique en Algérie et en Afrique. Notre objectif est d'informer, d'analyser et de décrypter les grandes mutations du secteur tech pour le grand public et les professionnels.</p>
+
+            <h2 style="font-family:'Playfair Display'; margin-bottom:15px; color:var(--highlight);">Ce que nous couvrons</h2>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-bottom:30px;">
+                <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:12px; border-left:3px solid var(--highlight);">📡 Télécommunications & Réseaux</div>
+                <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:12px; border-left:3px solid var(--highlight);">📱 Mobile & Smartphones</div>
+                <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:12px; border-left:3px solid var(--highlight);">🇩🇿 Numérique en Algérie</div>
+                <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:12px; border-left:3px solid var(--highlight);">🌍 Tech Afrique</div>
+                <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:12px; border-left:3px solid var(--highlight);">🤖 Intelligence Artificielle</div>
+                <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:12px; border-left:3px solid var(--highlight);">🚀 Startups & Innovation</div>
+            </div>
+
+            <h2 style="font-family:'Playfair Display'; margin-bottom:20px; color:var(--highlight);">Nos Réseaux Sociaux</h2>
+            <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:30px;">
+                <a href="https://www.facebook.com/basta.infostech" target="_blank" style="display:flex; align-items:center; gap:15px; background:rgba(24,119,242,0.15); border:1px solid rgba(24,119,242,0.4); padding:15px 20px; border-radius:12px; text-decoration:none; color:white; transition:0.3s;" onmouseover="this.style.background='rgba(24,119,242,0.3)'" onmouseout="this.style.background='rgba(24,119,242,0.15)'">
+                    <span style="font-size:24px;">📘</span>
+                    <div><strong>Facebook</strong><br><small style="color:#aaa;">facebook.com/basta.infostech</small></div>
+                </a>
+                <a href="https://www.youtube.com/@basta-infostech" target="_blank" style="display:flex; align-items:center; gap:15px; background:rgba(255,0,0,0.12); border:1px solid rgba(255,0,0,0.35); padding:15px 20px; border-radius:12px; text-decoration:none; color:white; transition:0.3s;" onmouseover="this.style.background='rgba(255,0,0,0.25)'" onmouseout="this.style.background='rgba(255,0,0,0.12)'">
+                    <span style="font-size:24px;">▶️</span>
+                    <div><strong>YouTube</strong><br><small style="color:#aaa;">youtube.com/@basta-infostech</small></div>
+                </a>
+                <a href="https://www.instagram.com/basta.infostech" target="_blank" style="display:flex; align-items:center; gap:15px; background:rgba(225,48,108,0.12); border:1px solid rgba(225,48,108,0.35); padding:15px 20px; border-radius:12px; text-decoration:none; color:white; transition:0.3s;" onmouseover="this.style.background='rgba(225,48,108,0.25)'" onmouseout="this.style.background='rgba(225,48,108,0.12)'">
+                    <span style="font-size:24px;">📸</span>
+                    <div><strong>Instagram</strong><br><small style="color:#aaa;">instagram.com/basta.infostech</small></div>
+                </a>
+            </div>
+
+            <h2 style="font-family:'Playfair Display'; margin-bottom:15px; color:var(--highlight);">Contact</h2>
+            <p style="color:#ccc;">📧 Pour nous contacter, nous soumettre un article ou un communiqué de presse :</p>
+            <p style="margin-top:10px;"><a href="mailto:contact@basta-infostech-news.pages.dev" style="color:var(--highlight); font-weight:bold;">contact@basta-infostech-news.pages.dev</a></p>
+        </div>
+    </div>
+</div>
+
 <div id="articleView" style="display:none;">
     <button class="back-btn" onclick="goHome()">← Retour</button>
     <div class="article-container">
@@ -161,8 +209,29 @@
 
 <footer>
     <div class="footer-grid">
-        <div><h2 style="font-family: 'Playfair Display'; margin-bottom:10px;">Basta-InfosTech.</h2><p style="font-size:13px; color:var(--text-muted);">Média spécialisé TIC en Algérie.</p></div>
-        <div><h4 style="margin-bottom:15px;">Contact</h4><p style="font-size:13px; color:var(--text-muted);">Email: contact@basta-infostech-news.pages.dev</p></div>
+        <div>
+            <h2 style="font-family: 'Playfair Display'; margin-bottom:10px;">Basta-InfosTech.</h2>
+            <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px;">Média spécialisé TIC & Télécoms en Algérie.</p>
+            <div style="display:flex; gap:10px;">
+                <a href="https://www.facebook.com/basta.infostech" target="_blank" style="background:rgba(255,255,255,0.08); padding:6px 12px; border-radius:8px; text-decoration:none; color:var(--text-muted); font-size:12px; transition:0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='var(--text-muted)'">📘 Facebook</a>
+                <a href="https://www.youtube.com/@basta-infostech" target="_blank" style="background:rgba(255,255,255,0.08); padding:6px 12px; border-radius:8px; text-decoration:none; color:var(--text-muted); font-size:12px; transition:0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='var(--text-muted)'">▶️ YouTube</a>
+                <a href="https://www.instagram.com/basta.infostech" target="_blank" style="background:rgba(255,255,255,0.08); padding:6px 12px; border-radius:8px; text-decoration:none; color:var(--text-muted); font-size:12px; transition:0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='var(--text-muted)'">📸 Instagram</a>
+            </div>
+        </div>
+        <div>
+            <h4 style="margin-bottom:15px;">Rubriques</h4>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+                <a onclick="filterArticles('Algérie', document.querySelector('nav a:nth-child(2)'))" style="font-size:13px; color:var(--text-muted); cursor:pointer; transition:0.3s;" onmouseover="this.style.color='var(--highlight)'" onmouseout="this.style.color='var(--text-muted)'">🇩🇿 Algérie</a>
+                <a onclick="filterArticles('Télécoms', document.querySelector('nav a:nth-child(3)'))" style="font-size:13px; color:var(--text-muted); cursor:pointer; transition:0.3s;" onmouseover="this.style.color='var(--highlight)'" onmouseout="this.style.color='var(--text-muted)'">📡 Télécoms</a>
+                <a onclick="filterArticles('Mobile', document.querySelector('nav a:nth-child(4)'))" style="font-size:13px; color:var(--text-muted); cursor:pointer; transition:0.3s;" onmouseover="this.style.color='var(--highlight)'" onmouseout="this.style.color='var(--text-muted)'">📱 Mobile</a>
+                <a onclick="filterArticles('Technologie', document.querySelector('nav a:nth-child(5)'))" style="font-size:13px; color:var(--text-muted); cursor:pointer; transition:0.3s;" onmouseover="this.style.color='var(--highlight)'" onmouseout="this.style.color='var(--text-muted)'">🤖 Technologie</a>
+            </div>
+        </div>
+        <div>
+            <h4 style="margin-bottom:15px;">Contact</h4>
+            <p style="font-size:13px; color:var(--text-muted); margin-bottom:8px;">📧 <a href="mailto:contact@basta-infostech-news.pages.dev" style="color:var(--text-muted); text-decoration:none;">contact@basta-infostech-news.pages.dev</a></p>
+            <p style="font-size:13px; color:var(--text-muted);">© 2026 Basta-InfosTech.<br>Tous droits réservés.</p>
+        </div>
     </div>
 </footer>
 
@@ -216,8 +285,12 @@
             i += BATCH_SIZE;
         }
 
-        // Tri par date décroissante
-        allArticles = results.filter(a => a !== null).sort((a, b) => new Date(b.date) - new Date(a.date));
+        // Tri : une:true en premier, puis par date décroissante
+        allArticles = results.filter(a => a !== null).sort((a, b) => {
+            if (a.une && !b.une) return -1;
+            if (!a.une && b.une) return 1;
+            return new Date(b.date) - new Date(a.date);
+        });
         filteredArticles = [...allArticles];
         document.getElementById('tickerContent').innerHTML = allArticles.map(a => `<span class="ticker-item">● ${a.title}</span>`).join('');
         renderUI();
@@ -235,6 +308,7 @@
             // SECURITE : Valeurs par défaut si oublié dans le .md
             return { 
                 id, 
+                une: meta.une === 'true',
                 title: meta.titre || 'Article sans titre', 
                 cat: meta.categorie || 'Infos', 
                 date: meta.date || 'Date non précisée', 
@@ -336,7 +410,21 @@
         }
     }
 
-    function goHome() { document.getElementById('articleView').style.display = 'none'; document.getElementById('homeView').style.display = 'block'; window.scrollTo(0, 0); }
+    function goHome() { 
+        document.getElementById('articleView').style.display = 'none'; 
+        document.getElementById('aboutView').style.display = 'none';
+        document.getElementById('homeView').style.display = 'block'; 
+        window.scrollTo(0, 0); 
+    }
+
+    function showAbout(el) {
+        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+        el.classList.add('active');
+        document.getElementById('homeView').style.display = 'none';
+        document.getElementById('articleView').style.display = 'none';
+        document.getElementById('aboutView').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
 
     function searchArticles() {
         const query = document.getElementById('searchInput').value.toLowerCase();
