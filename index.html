@@ -179,11 +179,43 @@
     setInterval(updateClock, 1000); updateClock();
 
     async function init() {
-        const promises = [];
-        for(let i=1; i<=1000; i++) {
-            promises.push(fetch(`articles/${i}.md`).then(r => r.ok ? r.text().then(t => parseMD(t, i)) : null).catch(() => null));
+        // OPTIMISATION : Fetch séquentiel par lots, s'arrête après 5 échecs consécutifs
+        const BATCH_SIZE = 10;   // 10 requêtes en parallèle à la fois
+        const MAX_FAILS = 5;     // On s'arrête après 5 articles manquants d'affilée
+        
+        let results = [];
+        let consecutiveFails = 0;
+        let i = 1;
+
+        while (consecutiveFails < MAX_FAILS) {
+            // Prépare un lot de requêtes
+            const batch = [];
+            for (let b = 0; b < BATCH_SIZE; b++) {
+                const idx = i + b;
+                batch.push(
+                    fetch(`articles/${idx}.md`)
+                        .then(r => r.ok ? r.text().then(t => ({ idx, data: parseMD(t, idx) })) : { idx, data: null })
+                        .catch(() => ({ idx, data: null }))
+                );
+            }
+
+            const batchResults = await Promise.all(batch);
+            let allFailedInBatch = true;
+
+            for (const { data } of batchResults) {
+                if (data !== null) {
+                    results.push(data);
+                    consecutiveFails = 0;
+                    allFailedInBatch = false;
+                } else {
+                    consecutiveFails++;
+                }
+                if (consecutiveFails >= MAX_FAILS) break;
+            }
+
+            i += BATCH_SIZE;
         }
-        const results = await Promise.all(promises);
+
         // Tri par date décroissante
         allArticles = results.filter(a => a !== null).sort((a, b) => new Date(b.date) - new Date(a.date));
         filteredArticles = [...allArticles];
